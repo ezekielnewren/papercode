@@ -122,16 +122,16 @@ public class PaperCode implements Closeable {
 		// text
 		txtReader.setEditable(false);
 		
-		Border border = BorderFactory.createLineBorder(Color.BLACK);
-	    txtReader.setBorder(BorderFactory.createCompoundBorder(border,
-	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-	    txtWriter.setBorder(BorderFactory.createCompoundBorder(border,
-	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+//		Border border = BorderFactory.createLineBorder(Color.BLACK);
+//	    txtReader.setBorder(BorderFactory.createCompoundBorder(border,
+//	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+//	    txtWriter.setBorder(BorderFactory.createCompoundBorder(border,
+//	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		
 		pictureIO.setPreferredSize(new Dimension(initialWidth*2, 500));
 		
-		textIO.add(txtReader);
-		textIO.add(txtWriter);
+		textIO.add(new JScrollPane(txtReader));
+		textIO.add(new JScrollPane(txtWriter));
 		textIO.setPreferredSize(new Dimension(initialWidth*2, 100));
 		
 		center.add(pictureIO);
