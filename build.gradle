@@ -17,7 +17,7 @@ apply plugin: 'application'
 
 version gitVersion()
 libsDirName = 'libs' // relative to $projectDir/build default 'libs'
-mainClassName = ""
+mainClassName = "com.ezekielnewren.papercode.Driver"
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -27,6 +27,7 @@ repositories {
 }
 
 dependencies {
+    // compile group: '', name: '', version: ''
     
     // APACHE
 	compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
@@ -40,7 +41,7 @@ dependencies {
 	// GOOGLE
 	compile group: 'com.google.guava', name: 'guava', version: '21.0'
     
-    // compile group: '', name: '', version: ''
+    // CRYPTO
     compile group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.55'
 
     // ZXING
@@ -52,10 +53,6 @@ dependencies {
     
 }
 
-
-
-
-
 jar {
 	manifest {
 		attributes("Implementation-Version": version,
@@ -65,7 +62,8 @@ jar {
 	from {
 		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
 	}
-	
+
+	exclude('ignore/','META-INF/')
 	baseName = project.name
 	version = version
 }
