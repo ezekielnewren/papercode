@@ -5,13 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.apache.logging.log4j.Logger;
+
+import com.ezekielnewren.papercode.resource.Resource;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamDevice;
 import com.github.sarxos.webcam.WebcamDiscoveryEvent;
 import com.github.sarxos.webcam.WebcamDiscoveryListener;
 
 public class WebcamExtension extends Webcam {
-
+	private static final Logger log = Resource.getLogger();
+	
+	
 	static HashMap<String,WebcamExtension> allWebcam = new HashMap<>();
 	
 	static final Object mutex = new Object();
@@ -77,7 +82,7 @@ public class WebcamExtension extends Webcam {
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 			public void run() {
 				if (inst!=null) inst.close();
-				else System.err.println("how is 'this' null?");
+				else log.fatal("how is 'this' null?");
 			}
 		});
 	}

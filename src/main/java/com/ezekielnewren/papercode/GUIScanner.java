@@ -7,10 +7,14 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+import org.apache.logging.log4j.Logger;
+
+import com.ezekielnewren.papercode.resource.Resource;
 import com.github.sarxos.webcam.Webcam;
 
 public class GUIScanner implements Closeable {
-
+	private static final Logger log = Resource.getLogger();
+	
 	Webcam wc;
 	JFrame frame = new JFrame();
 	CodeScanner cs;
@@ -51,9 +55,9 @@ public class GUIScanner implements Closeable {
 				
 				if (ise.getData()!=null) {
 					String str = new String(ise.getData());
-					System.err.println("scan success: "+str);
+					log.info("scan success: "+str);
 				} else {
-					System.err.println("scan failed");
+					log.info("scan failed");
 				}
 				
 			}
@@ -70,14 +74,14 @@ public class GUIScanner implements Closeable {
 		//System.out.println(gs.wc.getDevice().getName());
 		
 		long sleep = 0;
-		System.err.println("waiting "+(sleep/1000)+" seconds");
+		log.info("waiting "+(sleep/1000)+" seconds");
 		Thread.sleep(sleep);
 		
-		System.err.println("scanning qr code");
-		System.err.println();
+		log.info("scanning qr code");
+		log.info("");
 		for (int i=0; i<1; i++) {
 			byte[] data = gs.scan();
-			System.out.println(new String(data));
+			log.info(new String(data));
 		}
 		
 		//System.err.println("doing other things "+(sleep*5/1000)+" seconds");
