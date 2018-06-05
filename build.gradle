@@ -6,8 +6,18 @@
  * user guide available at https://docs.gradle.org/4.3/userguide/java_library_plugin.html
  */
 
-// Apply the java-library plugin to add support for Java Library
+plugins {
+    id 'com.palantir.git-version' version '0.11.0'
+}
+
 apply plugin: 'java-library'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+version gitVersion()
+libsDirName = 'libs' // relative to $projectDir/build default 'libs'
+mainClassName = ""
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -17,13 +27,45 @@ repositories {
 }
 
 dependencies {
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'org.apache.commons:commons-math3:3.6.1'
+    
+    // APACHE
+	compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7' 
+	compile group: 'commons-io', name: 'commons-io', version: '2.5'
+    
+    // https://logging.apache.org/log4j/2.x/maven-artifacts.html
+	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.0'
+	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.0'
+	
+	// GOOGLE
+	compile group: 'com.google.guava', name: 'guava', version: '21.0'
+    
+    // compile group: '', name: '', version: ''
+    compile group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.55'
 
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:23.0'
+    // ZXING
+    compile group: 'com.google.zxing', name: 'core', version: '3.3.2'
+    compile group: 'com.google.zxing', name: 'javase', version: '3.3.2'
 
-    // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+    // OTHER
+    compile group: 'com.github.sarxos', name: 'webcam-capture', version: '0.3.12'
+    
 }
 
+
+
+
+
+jar {
+	manifest {
+		attributes("Implementation-Version": version,
+		"Main-Class": mainClassName)
+	}
+	
+	from {
+		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+	
+	baseName = project.name
+	version = version
+}
