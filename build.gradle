@@ -53,6 +53,13 @@ dependencies {
     
 }
 
+task about (dependsOn: 'setupSourceCode') {
+	new File("$projectDir/src/main/resources/com/ezekielnewren/papercode/resource/about.txt").text = """version $version
+buildtime ${Long.toString(System.currentTimeMillis())}
+name $project.name
+"""
+}
+
 jar {
 	manifest {
 		attributes("Implementation-Version": version,

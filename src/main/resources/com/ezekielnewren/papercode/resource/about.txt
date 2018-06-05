@@ -1,0 +1,3 @@
+version 0.1.0-1-g4a96588.dirty
+buildtime 1528180626650
+name papercode

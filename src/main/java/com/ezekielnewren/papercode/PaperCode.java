@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.Closeable;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -27,6 +28,8 @@ import com.github.sarxos.webcam.WebcamDiscoveryListener;
 
 public class PaperCode implements Closeable {
 
+	About about = About.getInstance();
+	
 	// logic
 	Webcam wc;
 	CodeScanner cs;
@@ -35,6 +38,7 @@ public class PaperCode implements Closeable {
 	// graphical
 	JFrame frame = new JFrame();
 	JLabel status = new JLabel("status");
+	
 	
 	
 	public PaperCode() {
@@ -66,6 +70,22 @@ public class PaperCode implements Closeable {
 		
 		// TODO menu
 		menu.add(new JMenu("File"));
+		
+		JMenu mHelp = new JMenu("Help");
+		menu.add(mHelp);
+		
+		JMenuItem mhAbout = new JMenuItem("About");
+		mHelp.add(mhAbout);
+		
+		mHelp.add(mhAbout);
+		mhAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = "name: "+about.getName();
+				String version = "version: "+about.getVersion();
+				String buildtime = "buildtime: "+new SimpleDateFormat("MMMM dd, yyyy").format(about.getBuildtime());
+				JOptionPane.showMessageDialog(null, name+"\n"+version+"\n"+buildtime, "About", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		
 		base.add(menu, BorderLayout.PAGE_START);
 		
