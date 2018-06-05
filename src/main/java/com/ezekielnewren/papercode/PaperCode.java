@@ -3,6 +3,7 @@ package com.ezekielnewren.papercode;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -122,11 +123,8 @@ public class PaperCode implements Closeable {
 		// text
 		txtReader.setEditable(false);
 		
-//		Border border = BorderFactory.createLineBorder(Color.BLACK);
-//	    txtReader.setBorder(BorderFactory.createCompoundBorder(border,
-//	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-//	    txtWriter.setBorder(BorderFactory.createCompoundBorder(border,
-//	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		txtWriter.setFont(getMonospaceFont());
+		txtReader.setFont(getMonospaceFont());
 		
 		pictureIO.setPreferredSize(new Dimension(initialWidth*2, 500));
 		
@@ -225,7 +223,7 @@ public class PaperCode implements Closeable {
 			}
 		});
 		
-		JButton pasteWriter = new JButton("pase");
+		JButton pasteWriter = new JButton("paste");
 		pasteWriter.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				writerPaste(txtWriter);
@@ -270,6 +268,12 @@ public class PaperCode implements Closeable {
 		frame.pack();
 		frame.setVisible(true);
 	}
+	
+	// TODO helper
+	Font getMonospaceFont() {
+		return new Font(Font.MONOSPACED, Font.PLAIN, 18);
+	}
+
 	
 	// TODO gui actions
 	void copyToClipboard(JTextArea jtext) {
