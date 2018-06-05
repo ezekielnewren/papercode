@@ -15,11 +15,12 @@ import java.util.*;
 import org.apache.commons.collections4.iterators.IteratorIterable;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
+import org.apache.logging.log4j.Logger;
 
 import com.ezekielnewren.papercode.resource.Resource;
 
 public class About {
-	//private static Logger log = Resource.getLogger();
+	private static Logger log = Resource.getLogger();
 	
 	final String version;
 	final long buildtime;
@@ -34,7 +35,7 @@ public class About {
 			inst = new About();
 		} catch (IOException e) {
 			e.printStackTrace();
-			//log.fatal("failed to load about information exiting...");
+			log.fatal("failed to load about information exiting...");
 			System.exit(3);
 		}
 	}
@@ -76,7 +77,7 @@ public class About {
 		About a = About.getInstance();
 		String ver = a.getVersion();
 		Date built = new Date(a.getBuildtime());
-		//log.info("version: "+ver+" buildtime: "+built);
+		log.info("version: "+ver+" buildtime: "+built);
 	}
 
 	public static About getInstance() {
